@@ -15,7 +15,7 @@ class BankAccount {
 
   deposit(amt) {
     if (amt > 0) {
-      const newDeposit = new Transaction(this.payee, amt);
+      const newDeposit = new Transaction(this.owner, amt);
       this.transactions.push(newDeposit);
     } else {
         return 'Invalid Deposit'
@@ -38,4 +38,16 @@ class Transaction {
     this.amt = amt;
   }
   date = new Date();
+}
+
+class SavingsAccount extends BankAccount {
+  constructor(accountNumber, owner, interestRate) {
+    super(accountNumber, owner)
+    this.interestRate = interestRate
+  }
+ 
+  accrueInterest() {
+    const amt = this.balance() * this.interestRate
+    this.deposit(amt)
+  }
 }
